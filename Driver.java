@@ -1,7 +1,13 @@
 import java.util.*;
 import java.io.*;
 
-public class Scheduler {
+/* 
+   Version 12/23
+   The program's driver, very outdated and most things will probably go 
+   somewhere else, but it may have useful code. 
+*/
+
+public class Driver {
 
     public static void main(String[] args) throws FileNotFoundException {
 	Scheduler s = new Scheduler();

@@ -1,29 +1,36 @@
+/* 
+   Version 12/23
+   Mostly done just needs:
+   1. Methods to return each instance variable.
+   2. Testing. 
+*/
+
+
 import java.util.Vector;
 
 public class Person implements Comparable<Person> {
-
-    private Information pennID;
-    private Vector<Information> priority;
+    
+    private String name;
+    private int pennID;
+    private boolean[] priority;
     private Vector<TimeSlot> availableTimes;
     private TimeSlot scheduledTime;
-    private Vector<Information> misc;
-I
-    public Person(Information pennID, Vector<Information> priority, 
-		  Vector<TimeSlot> availableTimes, Vector<Information> misc) {
+
+    public Person(String name, int pennID, boolean[] priority,
+		  Vector<TimeSlot> availableTimes) {
+	this.name = name;
 	this.pennID = pennID;
 	this.priority = priority;
 	this.availableTimes = availableTimes;
-	this.misc = misc;
     }
 
-    public Person(Information pennID, Vector<Information> priority, 
-		  Vector<TimeSlot> availableTimes, TimeSlot scheduledTime, 
-		  Vector<Information> misc) {
+    public Person(String name, int pennID, boolean[] priority,
+		  Vector<TimeSlot> availableTimes, TimeSlot scheduledTime) {
+	this.name = name;
 	this.pennID = pennID;
 	this.priority = priority;
 	this.availableTimes = availableTimes;
 	this.scheduledTime = scheduledTime;
-	this.misc = misc;
     }
 
     public Vector<TimeSlot> getAvailableTimes() {
@@ -40,14 +47,14 @@ I
 
     public int compareTo(Person other) {
 	int thisValue = 0; 
-	for (int i = priority.size() - 1; i >= 0; i--) {
-	    if (priority.get(i)) {
+	for (int i = this.priority.length - 1; i >= 0; i--) {
+	    if (this.priority[i]) {
 		thisValue += (int) Math.pow(2, i);
 	    }
 	}
 	int otherValue = 0;
-	for (int i = other.priority.size() - 1; i >= 0; i--) {
-	    if (other.priority.get(i)) {
+	for (int i = other.priority.length - 1; i >= 0; i--) {
+	    if (other.priority[i]) {
 		otherValue += (int) Math.pow(2, i);
 	    }
 	}
@@ -55,31 +62,26 @@ I
     }
 
     public String toString() {
-	String str = "";
-	str += pennID.toString() + "\n";
-	for (Information i : priority) {
-	    str += i.toString() + "\n";
-	}
-	for (Information i : misc) {
-	    str += i.toString() + "\n";
+	String str = "Name:\n" + name + "\n";
+	str += "Penn ID:\n" + pennID + "\n";
+	str += "Priority:\n";
+       	for (boolean i : priority) {
+	    str += i + "\n";
 	}
 	str += "Available Times:\n";
 	for (TimeSlot t : availableTimes) {
-	    str += t.toString() + ", ";
+	    str += t.toString() + "\n";
 	}
-	str += "\nScheduled Time:\n" + scheduledTime;
+	str += "Scheduled Time:\n" + scheduledTime;
 	return str;
-	}
+    }
 
+    /* Tester, not done. */
     public static void main(String[] args) {
-	Vector<Boolean> aPriority = new Vector<Instruction>();
-	aPriority.add(new Instruction(null, true));
-	aPriority.add(true);
-	Vector<Boolean> bPriority = new Vector<Boolean>();
-	bPriority.add(true);
-	bPriority.add(false);
-	Person a = new Person(null, aPriority, null, null, null);
-	Person b = new Person(null, bPriority, null, null, null);
+	Person a = new Person("Bob", 4, new boolean[] {true, false}, null);
+	Person b = new Person("Sarah", 5, new boolean[] {false, true}, null, null);
+	System.out.println(a + "\n");
+	System.out.println(b + "\n");
 	System.out.println(a.compareTo(b));
     }
     

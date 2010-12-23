@@ -1,29 +1,29 @@
 import java.util.Vector;
 
+/* 
+   Version 12/23
+   Does it need to keep track of which people are scheduled? I currently only
+   keeps track of the number. 
+*/
+
 public class TimeSlot {
 
     private String day;
     private String slot;
     private int capacity;
-    private int peopleScheduled;
 
-    public TimeSlot(String day, String slot) {
+    public TimeSlot(String day, String slot, int capacity) {
 	this.day = day;
 	this.slot = slot;
-	capacity = 3;
-	peopleScheduled = 0;
-    }
-    
-    public boolean equals(TimeSlot other) {
-	return day.equals(other.day) && slot.equals(other.slot);
+	this.capacity = capacity;
     }
 
-    public boolean canAddPerson() {
-	return peopleScheduled < capacity;
+    public boolean canSchedulePerson() {
+	return capacity > 0;
     }
 
-    public void addPerson(Person p) {
-	peopleScheduled++;
+    public void schedulePerson() {
+	capacity--;
     }
 
     public String toString() {
