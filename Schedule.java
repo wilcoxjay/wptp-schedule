@@ -17,8 +17,20 @@ public class Schedule implements Comparable<Schedule> {
 	this.times = times;
     }
 
-    public void schedulePerson(Person p, TimeSlot t) {
-	s.add(p, t);
+    public boolean canSchedule(Person p, TimeSlot t) {
+	return t.canAddPerson();
+    }
+
+    public void schedule(Person p, TimeSlot t) {
+	s.put(p, t);
+	p.scheduleTime(t);
+	t.addPerson();
+    }
+
+    public void remove(Person p) {
+	s.get(p).removePerson();
+	s.remove(p);
+	p.scheduleTime(null);
     }
 
     /* Not done. */

@@ -18,12 +18,16 @@ public class TimeSlot {
 	this.capacity = capacity;
     }
 
-    public boolean canSchedulePerson() {
+    public boolean canAddPerson() {
 	return capacity > 0;
     }
 
-    public void schedulePerson() {
+    public void addPerson() {
 	capacity--;
+    }
+
+    public void removePerson() {
+	capacity++;
     }
 
     public String toString() {

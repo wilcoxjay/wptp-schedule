@@ -1,32 +1,39 @@
 /*
-  Version 12/23
-  Just has random() copied and pasted from something old
+  Version 12/24
 */
+
+import java.util.Vector;
 
 public class Algorithm {
 
-    /* Copied and pasted from something old, very unfinished. */
+    /* Maybe works? */
     public static Schedule random(Vector<Person> people, 
 				  Vector<TimeSlot> times) {
-	private HashMap<Person, TimeSlot> s = new HashMap<Person, TimeSlot>();
+	Schedule s = new Schedule(people, times);
+	
 	for (Person p : people) {
+	    
 	    Vector<TimeSlot> availableTimes = 
 		new Vector<TimeSlot>(p.getAvailableTimes());
-	    boolean done = false;
+	    
+	    boolean done = false;	    
 	    while (!done) {
+
 		int index = (int) (Math.random() * availableTimes.size());
-		if (availableTimes.get(index).canAddPerson()) {
-		    s.put(p, availableTimes.get(index));
+		TimeSlot t = availableTimes.get(index);
+
+		if (s.canSchedule(p, t)) {
+		    s.schedule(p, t);
 		    done = true;
 		} else {
 		    availableTimes.remove(index);
 		}
+		
 		if (availableTimes.size() == 0) {
 		    done = true;
 		}
 	    }
 	}
-	return new Schedule(s, people, times);
+	return s;
     }
-
 }
